@@ -1,35 +1,69 @@
-let edgeLength = 300;
+let radius = 300;
 let counter = 0;
+let a, b, c, d, e, f, g;
+let coss, sinn;
+
 
 
 function setup() {
   colorMode(RGB, 255, 255, 255, 1);
-  background(0,0,0,1);
-  let cnv = createCanvas(windowWidth, windowHeight, WEBGL);
+  background(0, 0, 0, 1);
+  let cnv = createCanvas(windowWidth, windowHeight);
   // put setup code here
   stroke(24, 202, 230, 1);
   strokeWeight(1);
-  fill(24, 202, 230, 0.1)
+  noFill();
+  //fill(24, 202, 230, 1)
+  angleMode(DEGREES)
+  coss = cos(60) * radius;
+  sinn = sin(60) * radius;
+  a = createVector(0, 0);
+  b = createVector(sinn, coss);
+  c = createVector(0, radius);
+  d = createVector(-sinn, coss);
+  e = createVector(-sinn, -coss);
+  f = createVector(0, -radius);
+  g = createVector(sinn, -coss);
 }
 
 
-
 function draw() {
-  background(0,0,0,1);
-  counter += 0.01;
-  for (let i = 0; i < 40; i++) {
-    let angle = counter+i*0.3;
+  background(0, 0, 0);
+  counter += 1;
+
+  for (let i = 0; i < 15; i++) {
+    push()
+    translate(radius + map(cos(counter), -1,1,0,1)*i*50, windowHeight / 2 );
+    rotate(log(counter) + i*4)
+    //a.x += 5*sin(counter*0.1)
+    //side A
     beginShape();
-    //---------------start
-      curveVertex(sin(angle)*edgeLength, cos(angle)*edgeLength, 0);
-      curveVertex(sin(angle)+0, cos(angle)+0, 0);
-      curveVertex(cos(angle), sin(angle)*edgeLength, 0);
-      curveVertex(cos(angle)*edgeLength, -noise(-angle)*sin(-angle)*edgeLength , 0);
-      curveVertex(sin(angle)*edgeLength, cos(angle)+0, 0);
-      curveVertex(sin(angle)+0, cos(angle)+0, 0);
-      curveVertex(sin(angle)+0, cos(angle)+0, 0);
-    endShape();
+    fill(24, 202, 230, 0.2)
+    vertex(a.x, a.y);
+    vertex(b.x, b.y);
+    vertex(c.x, c.y);
+    vertex(d.x, d.y);
+    endShape(CLOSE);
+    //side B
+    beginShape();
+    fill(24, 202, 230, 0.1)
+    vertex(d.x, d.y);
+    vertex(e.x, e.y);
+    vertex(f.x, f.y);
+    vertex(a.x, a.y);
+    endShape(CLOSE);
+
+    //side C
+    beginShape();
+    fill(24, 202, 230, 0.1)
+    vertex(a.x, a.y);
+    vertex(f.x, f.y);
+    vertex(g.x, g.y);
+    vertex(b.x, b.y);
+    endShape(CLOSE);
+
+    // put drawing code here
+    pop()
   }
 
-  // put drawing code here
 }
