@@ -9,7 +9,7 @@ function setup() {
   colorMode(RGB, 255, 255, 255, 1);
   background(39, 65, 66, 1);
   let cnv = createCanvas(windowWidth, windowHeight);
-  radius = windowHeight/3;
+  radius = windowHeight*0.4;
   // put setup code here
   stroke(132,183,147,1); 
   strokeWeight(1);
